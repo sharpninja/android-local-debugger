@@ -1,3 +1,6 @@
+Local .NET Debugger project license: GNU Affero General Public License, version 3.
+See the accompanying LICENSE file. Third-party components retain their licenses below.
+
 Third-party notices for the Local .NET Debugger proof of concept
 
 AndroidX and other dependencies also retain their embedded notices in the APK META-INF entries.

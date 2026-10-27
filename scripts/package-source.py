@@ -26,7 +26,7 @@ bundle = artifacts / 'local-debugger-arm64.zip'
 with zipfile.ZipFile(bundle, 'w', zipfile.ZIP_STORED) as output:
     for name in ['LocalDebug-android-arm64.apk', 'DebugTarget-android-arm64.apk', 'package-checks.json']:
         output.write(artifacts / name, name)
-    for name in ['README.md', 'CHECKS.md', 'THIRD_PARTY_NOTICES.txt']:
+    for name in ['README.md', 'CHECKS.md', 'RELEASE_NOTES.md', 'LICENSE', 'THIRD_PARTY_NOTICES.txt']:
         output.write(root / name, name)
     output.write(root/'scripts/Test-Fold4.ps1', 'Test-Fold4.ps1')
     output.write(root/'DEVICE_TEST_HANDOFF.md', 'DEVICE_TEST_HANDOFF.md')

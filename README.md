@@ -6,7 +6,7 @@ This implements managed debugging through Mono's soft-debugger protocol. It atta
 
 ## Install and try the demo
 
-Packaged builds will be published in this repository's [GitHub releases](https://github.com/sharpninja/android-local-debugger/releases). The ARM64 bundle includes both APKs and the local Fold 4 test runner. Source, dependency lockfiles, documentation, and scripts are tracked in Git; build outputs are distributed as release assets.
+Download packaged builds from this repository's [GitHub releases](https://github.com/sharpninja/android-local-debugger/releases). The ARM64 bundle includes both APKs and the local Fold 4 test runner. Source, dependency lockfiles, documentation, and scripts are tracked in Git; build outputs are distributed as release assets.
 
 The built ARM64 APKs are in `artifacts/`:
 
@@ -124,5 +124,9 @@ Both ARM64 Android builds and their APK signatures have been checked. **No physi
 - `third_party/Mono.Debugger.Soft`: pinned debugger library source, license, provenance, and compatibility changes.
 - `tests/`: headless layout checks and live Mono integration harness.
 - `tests/LocalDebug.DeviceChecks` and the Debug-only Android instrumentation: reusable local-attach checks and their phone entry point.
+
+## License
+
+This project is licensed under the GNU Affero General Public License, version 3; see [LICENSE](LICENSE). Vendored code and dependencies retain their own licenses, recorded in [THIRD_PARTY_NOTICES.txt](THIRD_PARTY_NOTICES.txt) and the vendored source.
 
 The existing `/workspace/private` repository was not changed.
