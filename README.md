@@ -76,21 +76,23 @@ Object references show their type. Property evaluation, editing values, conditio
 
 ## Build
 
-Prerequisites: the .NET SDK pinned in `global.json`, the `android` workload, JDK 21, Android platform 36, build-tools 36.0.0, and platform-tools.
+Prerequisites: the .NET SDK pinned in `global.json`, the `android` workload, JDK 21, Android platform 36, build-tools 36.0.0, platform-tools, and Python 3.11 or later. Full host testing requires Linux x64.
 
 ```bash
 dotnet workload install android --skip-manifest-update
-bash scripts/build.sh
+./build.sh --target CI
 ```
 
-`build.sh` restores with locked dependencies and produces both signed Debug APKs. It uses `ANDROID_HOME` and `JAVA_HOME` when set. Debug signing keys remain local and are not included in the source archive.
+NUKE 10.1.0 coordinates the build through `_build/Build.cs`. The bootstrap restores NUKE using its checked lockfile; no global NUKE installation is needed. `CI` runs Clean, Restore, Compile, Test, Verify, and Pack. It produces both signed Debug APKs, package checks, source and APK bundles, and checksums under `artifacts/ci/`. Existing published files directly under `artifacts/` are preserved. Debug signing keys remain local and are not included in the source archive.
+
+Individual targets are available with `./build.sh --target Restore`, `Compile`, `Test`, `Verify`, or `Pack`. PowerShell uses `./build.ps1` with the same arguments. `TestDevice` is an explicit local hardware target. See [CI.md](CI.md) for the target graph, agent prerequisites, parameters, and output collection. The build is independent of any hosted CI service.
 
 In this managed cloud workspace:
 
 ```bash
 cd /workspace/android-local-debugger
 source scripts/env.sh
-bash scripts/build.sh
+./build.sh --target CI
 ```
 
 `scripts/install-android-sdk.py` is a Linux setup helper. It downloads SDK components from Google's official HTTPS repository, verifies the checksums from Google's repository metadata, and records SDK license acceptance. It preserves already installed components. It avoids the Xamarin SDK installer's certificate-pinning conflict with the cloud HTTPS proxy. TLS verification remains enabled.
@@ -106,10 +108,10 @@ dotnet nuget trust sync nuget.org --configfile NuGet.config
 For the requested `payton-legion2` + USB Samsung Fold 4 test, see [the local test handoff](DEVICE_TEST_HANDOFF.md). The refreshed ARM64 bundle includes `Test-Fold4.ps1`; run it locally on that PC. It checks the hardware identity, installs the APK pair, runs eight checks inside the debugger APK on the phone, verifies .NET 10 runtime/process evidence, and saves structured results. This cloud task cannot dispatch a local desktop task with its currently exposed tools; the physical run is still pending.
 
 ```bash
-bash scripts/test.sh
+./build.sh --target Test
 ```
 
-The test script is for Linux x64. It checks the Avalonia layout and navigation headlessly at 360×420 and 720×380, then runs ten integration scenarios against actual, separately running .NET 8 Mono processes. One scenario runs the same eight checks used by the phone instrumentation, using a second fixture with an increasing counter. This older Linux runtime is a protocol test fixture; both Android apps target .NET 10.
+The Test target is for Linux x64. It checks the Avalonia layout and navigation headlessly at 360×420 and 720×380, then runs ten integration scenarios against actual, separately running .NET 8 Mono processes. One scenario runs the same eight checks used by the phone instrumentation, using a second fixture with an increasing counter. This older Linux runtime is a protocol test fixture; both Android apps target .NET 10. The older `scripts/build.sh` and `scripts/test.sh` entry points delegate to NUKE.
 
 The integration suite verifies that the target runs before attachment, really pauses, hits a source breakpoint, exposes four expected argument/local values, steps over/into/out, changes stack frames, removes breakpoints, resumes on detach, reconnects, detects process exit, and cancels a non-debugger handshake.
 

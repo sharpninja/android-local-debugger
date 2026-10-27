@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Check the signed packages and ensure only the demo enables the agent."""
 from pathlib import Path
+import argparse
 import hashlib
 import json
 import os
@@ -9,25 +10,35 @@ import subprocess
 import zipfile
 
 root = Path(__file__).resolve().parent.parent
-tools = Path(os.environ['ANDROID_HOME']) / 'build-tools/36.0.0'
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--artifacts-directory', type=Path, default=root / 'artifacts')
+parser.add_argument('--android-sdk', type=Path,
+                    default=os.environ.get('ANDROID_HOME') or os.environ.get('ANDROID_SDK_ROOT'))
+args = parser.parse_args()
+if args.android_sdk is None:
+    parser.error('Set ANDROID_HOME or pass --android-sdk.')
+artifacts = args.artifacts_directory.resolve()
+tools = args.android_sdk / 'build-tools/36.0.0'
+apksigner = tools / ('apksigner.bat' if os.name == 'nt' else 'apksigner')
+aapt2 = tools / ('aapt2.exe' if os.name == 'nt' else 'aapt2')
 configuration = b'--debugger-agent=transport=dt_socket,address=127.0.0.1:56000,server=y,suspend=n,embedding=1'
 results = []
 for filename, package_id, is_target in [
     ('LocalDebug-android-arm64.apk', 'dev.localdebug.debugger', False),
     ('DebugTarget-android-arm64.apk', 'dev.localdebug.target', True),
 ]:
-    package = root / 'artifacts' / filename
-    signature = subprocess.run([str(tools/'apksigner'), 'verify', '--verbose', str(package)],
+    package = artifacts / filename
+    signature = subprocess.run([str(apksigner), 'verify', '--verbose', str(package)],
                                capture_output=True, text=True, check=True)
     assert 'Verified using v2 scheme (APK Signature Scheme v2): true' in signature.stdout
     assert 'Verified using v3 scheme (APK Signature Scheme v3): true' in signature.stdout
-    badging = subprocess.run([str(tools/'aapt2'), 'dump', 'badging', str(package)],
+    badging = subprocess.run([str(aapt2), 'dump', 'badging', str(package)],
                              capture_output=True, text=True, check=True).stdout
     for expected in [f"package: name='{package_id}'", "targetSdkVersion:'36'",
                      "uses-permission: name='android.permission.INTERNET'", "native-code: 'arm64-v8a'",
                      'application-debuggable']:
         assert expected in badging, f'{filename}: missing package attribute {expected}'
-    manifest = subprocess.run([str(tools/'aapt2'), 'dump', 'xmltree', '--file', 'AndroidManifest.xml', str(package)],
+    manifest = subprocess.run([str(aapt2), 'dump', 'xmltree', '--file', 'AndroidManifest.xml', str(package)],
                               capture_output=True, text=True, check=True).stdout
     assert re.search(r'android:minSdkVersion\([^\)]+\)=23\b', manifest), f'{filename}: incorrect minimum SDK'
     assert re.search(r'android:targetSdkVersion\([^\)]+\)=36\b', manifest), f'{filename}: incorrect target SDK'
@@ -47,4 +58,4 @@ for filename, package_id, is_target in [
               'target_debug_agent_enabled': configured}
     results.append(result)
     print('PASS:', filename, 'signature, manifest, ARM64 payload, and debug-agent configuration.')
-(root/'artifacts/package-checks.json').write_text(json.dumps(results, indent=2)+'\n')
+(artifacts/'package-checks.json').write_text(json.dumps(results, indent=2)+'\n')
