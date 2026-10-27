@@ -1,0 +1,7 @@
+<Project>
+  <PropertyGroup>
+    <LocalDebugLockRuntime Condition=" '$(RuntimeIdentifier)' != '' ">$(RuntimeIdentifier)</LocalDebugLockRuntime>
+    <LocalDebugLockRuntime Condition=" '$(RuntimeIdentifier)' == '' and '$(RuntimeIdentifiers)' != '' ">$([System.String]::Copy('$(RuntimeIdentifiers)').Replace(';', '_'))</LocalDebugLockRuntime>
+    <NuGetLockFilePath Condition=" '$(LocalDebugLockRuntime)' != '' ">$(MSBuildProjectDirectory)/packages.$(LocalDebugLockRuntime).lock.json</NuGetLockFilePath>
+  </PropertyGroup>
+</Project>

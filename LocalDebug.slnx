@@ -1,0 +1,20 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/LocalDebug.Core/LocalDebug.Core.csproj" />
+    <Project Path="src/LocalDebug.App/LocalDebug.App.csproj" />
+    <Project Path="src/LocalDebug.Android/LocalDebug.Android.csproj" />
+  </Folder>
+  <Folder Name="/samples/">
+    <Project Path="samples/DebugTarget.App/DebugTarget.App.csproj" />
+    <Project Path="samples/DebugTarget.Android/DebugTarget.Android.csproj" />
+  </Folder>
+  <Folder Name="/third_party/">
+    <Project Path="third_party/Mono.Debugger.Soft/Mono.Debugger.Soft.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/LocalDebug.DeviceChecks/LocalDebug.DeviceChecks.csproj" />
+    <Project Path="tests/LocalDebug.UiSmoke/LocalDebug.UiSmoke.csproj" />
+    <Project Path="tests/LocalDebug.Integration/LocalDebug.Integration.csproj" />
+    <Project Path="tests/MonoDebuggee/MonoDebuggee.csproj" />
+  </Folder>
+</Solution>

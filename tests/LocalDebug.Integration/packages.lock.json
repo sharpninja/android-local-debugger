@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "dependencies": {
+    "net10.0": {
+      "Mono.Cecil": {
+        "type": "Transitive",
+        "resolved": "0.11.6",
+        "contentHash": "f33RkDtZO8VlGXCtmQIviOtxgnUdym9xx/b1p9h91CRGOsJFxCFOFK1FDbVt1OCf1aWwYejUFa2MOQyFWTFjbA=="
+      },
+      "localdebug.core": {
+        "type": "Project",
+        "dependencies": {
+          "Mono.Debugger.Soft": "[1.0.0, )"
+        }
+      },
+      "localdebug.devicechecks": {
+        "type": "Project",
+        "dependencies": {
+          "LocalDebug.Core": "[1.0.0, )"
+        }
+      },
+      "mono.debugger.soft": {
+        "type": "Project",
+        "dependencies": {
+          "Mono.Cecil": "[0.11.6, )"
+        }
+      }
+    }
+  }
+}

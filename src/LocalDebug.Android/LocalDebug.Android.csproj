@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../../build/Android.props" />
+  <PropertyGroup>
+    <ApplicationId>dev.localdebug.debugger</ApplicationId>
+    <ApplicationTitle>Local .NET Debugger</ApplicationTitle>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Android" Version="$(AvaloniaVersion)" />
+    <ProjectReference Include="../LocalDebug.App/LocalDebug.App.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+    <ProjectReference Include="../../tests/LocalDebug.DeviceChecks/LocalDebug.DeviceChecks.csproj" />
+  </ItemGroup>
+</Project>
