@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/build/">
+    <Project Path="_build/_build.csproj" />
+  </Folder>
   <Folder Name="/src/">
     <Project Path="src/LocalDebug.Core/LocalDebug.Core.csproj" />
     <Project Path="src/LocalDebug.App/LocalDebug.App.csproj" />
