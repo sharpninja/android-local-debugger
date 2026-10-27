@@ -456,3 +456,7 @@ core.*
 !/artifacts/local-debugger-arm64.zip
 !/artifacts/package-checks.json
 !/artifacts/SHA256SUMS
+
+AGENTS-README-FIRST.yaml
+.mcpServer/
+cache/
