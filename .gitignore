@@ -446,6 +446,8 @@ __pycache__/
 !.env.example
 core
 core.*
+.nuke/temp/
+.nuke/*.local.json
 
 # Publish the checked deliverables through Git; keep other build outputs local.
 !/artifacts/
