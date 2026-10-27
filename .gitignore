@@ -446,3 +446,13 @@ __pycache__/
 !.env.example
 core
 core.*
+
+# Publish the checked deliverables through Git; keep other build outputs local.
+!/artifacts/
+/artifacts/*
+!/artifacts/LocalDebug-android-arm64.apk
+!/artifacts/DebugTarget-android-arm64.apk
+!/artifacts/local-debugger-source.zip
+!/artifacts/local-debugger-arm64.zip
+!/artifacts/package-checks.json
+!/artifacts/SHA256SUMS

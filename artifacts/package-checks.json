@@ -1,0 +1,28 @@
+[
+  {
+    "file": "LocalDebug-android-arm64.apk",
+    "package": "dev.localdebug.debugger",
+    "bytes": 39676093,
+    "sha256": "ee0d9bbbcee4dba8cd8d1a8cee4034284f223a4ba9f9db8dc8f9ae49ea6c1b0a",
+    "apk_signature_v2": true,
+    "apk_signature_v3": true,
+    "min_sdk": 23,
+    "target_sdk": 36,
+    "abi": "arm64-v8a",
+    "device_test_instrumentation": true,
+    "target_debug_agent_enabled": false
+  },
+  {
+    "file": "DebugTarget-android-arm64.apk",
+    "package": "dev.localdebug.target",
+    "bytes": 39113731,
+    "sha256": "4129e7096bff0611a67fe4a68d8f49bdb594d26f1258d7c5ab31f7cbb644bade",
+    "apk_signature_v2": true,
+    "apk_signature_v3": true,
+    "min_sdk": 23,
+    "target_sdk": 36,
+    "abi": "arm64-v8a",
+    "device_test_instrumentation": false,
+    "target_debug_agent_enabled": true
+  }
+]

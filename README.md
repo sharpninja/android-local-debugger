@@ -6,7 +6,7 @@ This implements managed debugging through Mono's soft-debugger protocol. It atta
 
 ## Install and try the demo
 
-Download packaged builds from this repository's [GitHub releases](https://github.com/sharpninja/android-local-debugger/releases). The ARM64 bundle includes both APKs and the local Fold 4 test runner. Source, dependency lockfiles, documentation, and scripts are tracked in Git; build outputs are distributed as release assets.
+Download packaged builds from this repository's [GitHub releases](https://github.com/sharpninja/android-local-debugger/releases) or the tracked [artifacts directory](artifacts/). The ARM64 bundle includes both APKs and the local Fold 4 test runner. Source, dependency lockfiles, documentation, scripts, and checked deliverables are stored in Git.
 
 The built ARM64 APKs are in `artifacts/`:
 

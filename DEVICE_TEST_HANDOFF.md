@@ -8,7 +8,7 @@ The user has authorized testing this debugger on `payton-legion2`, with a Samsun
 
 ## Files
 
-Download and extract `local-debugger-arm64.zip` from the [v0.1.0-alpha.1 release](https://github.com/sharpninja/android-local-debugger/releases/tag/v0.1.0-alpha.1). The bundle is also available from the original cloud task. It includes:
+Download and extract `local-debugger-arm64.zip` from the [v0.1.0-alpha.2 release](https://github.com/sharpninja/android-local-debugger/releases/tag/v0.1.0-alpha.2). The bundle is also available from the repository's `artifacts/` directory and the original cloud task. It includes:
 
 - `LocalDebug-android-arm64.apk`, including a Debug-only instrumentation entry point.
 - `DebugTarget-android-arm64.apk`.
